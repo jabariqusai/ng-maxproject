@@ -1,4 +1,4 @@
-<div class="scale-in-hor-left">
+<div class="scale-in-hor-left" *ngIf="recipe; else noRecipe">
   <div class="row">
     <div class="col-12">
       <img [src]="recipe.imgPath" alt="{{recipe.name}}" class="image-responsive" style="border-radius: 50%; height: 100px; width: 100px;">
@@ -12,7 +12,7 @@
           Manage Recipe 
         </button>
         <div class="dropdown-menu" aria-labelledby="btnEditGroup">
-          <a style="cursor: pointer;" class="dropdown-item">Add to shopping list</a>
+          <a style="cursor: pointer;" class="dropdown-item" (click)="addIngredientsToSL()">Add to shopping list</a>
           <a style="cursor: pointer;" class="dropdown-item">Edit recipe</a>
           <a style="cursor: pointer;" class="dropdown-item">Delete recipe</a>
         </div>
@@ -24,4 +24,17 @@
       <p>{{recipe.description}}</p>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <ul class="list-group list-group-flush px-0">
+        <li class="list-group-item d-flex justify-content-between align-items-center py-2" *ngFor="let ingredient of recipe.ingredients">
+          {{ingredient.name}}
+          <span class="badge badge-primary badge-pill">{{ingredient.amount}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+<ng-template #noRecipe>
+  <p class="text-muted">Please select a recipe</p>
+</ng-template>
