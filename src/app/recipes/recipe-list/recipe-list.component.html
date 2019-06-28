@@ -3,7 +3,7 @@
     <button class="col-12 btn btn-outline-primary">New Recipe</button>
     <hr class="col-10 mt-3">
     <div class="col-12 list-group pr-0" app-recipe-item>
-        <app-recipe-item class="list-group-item list-group-item-action" *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-item>
+        <app-recipe-item class="list-group-item list-group-item-action" (click)="onItemSelect(recipe)" *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-item>
     </div>
   </div>
 </div>

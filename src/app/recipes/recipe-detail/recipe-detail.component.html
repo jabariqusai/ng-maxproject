@@ -1,23 +1,27 @@
-<!-- <div class="row">
-  <div class="col-12">
-    <img [src]="recipe.imgPath" alt="{{recipe.name}}" class="image-responsive" style="border-radius: 50%; height: 100px; width: 100px;">
+<div class="scale-in-hor-left">
+  <div class="row">
+    <div class="col-12">
+      <img [src]="recipe.imgPath" alt="{{recipe.name}}" class="image-responsive" style="border-radius: 50%; height: 100px; width: 100px;">
+    </div>
   </div>
-</div>
-<div class="row justify-content-between">
-  <h1>{{recipe.name}}</h1>
-  <div class="button-group">
-    <button id="btnEditGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Manage Recipe 
-    </button>
-    <div class="dropdown-menu" aria-labelledby="btnEditGroup">
-      <a style="cursor: pointer;" class="dropdown-item">Add to shopping list</a>
-      <a style="cursor: pointer;" class="dropdown-item">Edit recipe</a>
-      <a style="cursor: pointer;" class="dropdown-item">Delete recipe</a>
+  <div class="row">
+    <div class="col-12 d-flex align-items-center">
+      <h1 class="mr-3">{{recipe.name}}</h1>
+      <div class="button-group">
+        <button id="btnEditGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Manage Recipe 
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnEditGroup">
+          <a style="cursor: pointer;" class="dropdown-item">Add to shopping list</a>
+          <a style="cursor: pointer;" class="dropdown-item">Edit recipe</a>
+          <a style="cursor: pointer;" class="dropdown-item">Delete recipe</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>{{recipe.description}}</p>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-12">
-    <p>{{recipe.description}}</p>
-  </div>
-</div> -->
