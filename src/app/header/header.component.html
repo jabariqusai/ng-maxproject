@@ -5,11 +5,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Shopping List</a>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['recipes']">Shopping List</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Recipe Book</a>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['shopping-list']">Recipe Book</a>
             </li>
         </ul>
     </div>

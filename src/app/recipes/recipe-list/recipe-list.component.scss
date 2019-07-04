@@ -1,0 +1,16 @@
+.list-group{
+  .list-group-item{
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    &.active-list-item:before{
+      content: '';
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+      width: 3px;
+      background: rgb(67, 123, 226);
+    }
+  }
+}

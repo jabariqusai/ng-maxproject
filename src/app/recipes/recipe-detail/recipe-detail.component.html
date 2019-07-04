@@ -1,4 +1,4 @@
-<div class="scale-in-hor-left" *ngIf="recipe; else noRecipe">
+<div class="scale-in-hor-left">
   <div class="row">
     <div class="col-12">
       <img [src]="recipe.imgPath" alt="{{recipe.name}}" class="image-responsive" style="border-radius: 50%; height: 100px; width: 100px;">
@@ -9,11 +9,11 @@
       <h1 class="mr-3">{{recipe.name}}</h1>
       <div class="button-group">
         <button id="btnEditGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Manage Recipe 
+          Manage Recipe
         </button>
         <div class="dropdown-menu" aria-labelledby="btnEditGroup">
           <a style="cursor: pointer;" class="dropdown-item" (click)="addIngredientsToSL()">Add to shopping list</a>
-          <a style="cursor: pointer;" class="dropdown-item">Edit recipe</a>
+          <a style="cursor: pointer;" class="dropdown-item" [routerLink]="['edit']">Edit recipe</a>
           <a style="cursor: pointer;" class="dropdown-item">Delete recipe</a>
         </div>
       </div>
@@ -35,6 +35,3 @@
     </div>
   </div>
 </div>
-<ng-template #noRecipe>
-  <p class="text-muted">Please select a recipe</p>
-</ng-template>

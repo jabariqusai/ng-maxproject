@@ -13,6 +13,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { FormsModule } from '@angular/forms';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { UnlessDirective } from './shared/directives/unless.directive';
+import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
+import { NewRecipeComponent } from './recipes/new-recipe/new-recipe.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { UnlessDirective } from './shared/directives/unless.directive';
     ShoppingEditComponent,
     ShoppingListComponent,
     HighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    RecipeStartComponent,
+    NewRecipeComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
