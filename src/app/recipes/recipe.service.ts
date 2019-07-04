@@ -1,13 +1,14 @@
 import { Recipe } from './recipe.model';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  recipeSelectedEvent = new EventEmitter<Recipe>();
-  recipesUpdatedEvent = new EventEmitter<Recipe[]>();
+  recipeSelectedEvent = new Subject<Recipe>();
+  recipesUpdatedEvent = new Subject<Recipe[]>();
   // tslint:disable-next-line: variable-name
   private _recipes = [
       new Recipe(
@@ -71,11 +72,11 @@ export class RecipeService {
     const index = this._recipes.findIndex(item => item.id === newRecipe.id);
     if (index) {
       this._recipes[index] = Object.assign({}, newRecipe);
-      this.recipesUpdatedEvent.emit(this.getRecipes());
+      this.recipesUpdatedEvent.next(this.getRecipes());
     }
   }
 
   recipeSelected(recipe: Recipe) {
-      this.recipeSelectedEvent.emit(recipe);
+      this.recipeSelectedEvent.next(recipe);
   }
 }
