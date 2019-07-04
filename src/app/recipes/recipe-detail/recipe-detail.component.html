@@ -1,11 +1,11 @@
 <div class="scale-in-hor-left">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-8">
       <img [src]="recipe.imgPath" alt="{{recipe.name}}" class="image-responsive" style="border-radius: 50%; height: 100px; width: 100px;">
     </div>
   </div>
   <div class="row">
-    <div class="col-12 d-flex align-items-center">
+    <div class="col-12 col-md-8 justify-content-between d-flex align-items-center">
       <h1 class="mr-3">{{recipe.name}}</h1>
       <div class="button-group">
         <button id="btnEditGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-8">
       <p>{{recipe.description}}</p>
     </div>
   </div>
