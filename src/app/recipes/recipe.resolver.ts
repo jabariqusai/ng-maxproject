@@ -6,12 +6,16 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeResolver implements Resolve<Recipe>{
+export class RecipeResolver implements Resolve<{self: Recipe, index: number}> {
 
   constructor(private recipeService: RecipeService) { }
 
-  resolve(currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot): Recipe {
-    const recipe = this.recipeService.getRecipe(+currentRoute.params.id);
-    return recipe;
+  resolve(currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot): {self: Recipe, index: number} {
+    const index = +currentRoute.params.index;
+    const recipe = this.recipeService.getRecipe(index);
+    return {
+      self: recipe,
+      index
+    };
   }
 }

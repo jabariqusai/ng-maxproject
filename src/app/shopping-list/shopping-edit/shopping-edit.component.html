@@ -1,20 +1,33 @@
-<form ngNativeValidate (submit)="onAdd()">
+<form (ngSubmit)="formSubmit(shoppingForm)" #shoppingForm="ngForm">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-5 col-lg-3 px-0 form-group">
         <label for="name">Name</label>
-        <input [(ngModel)]="name" type="text" class="form-control" id="name" required name="name">
+        <input
+          ngModel
+          type="text"
+          class="form-control"
+          required
+          name="name"
+          >
       </div>
       <div class="col-12 col-md-3 col-lg-2 px-inherit px-0 px-sm-2 form-group">
         <label for="amount">Amount</label>
-        <input [(ngModel)]="amount" type="number" class="form-control text-center" id="amount" required name="amount">
+        <input
+          ngModel
+          type="number"
+          class="form-control text-center"
+          required
+          name="amount"
+          min="1"
+          >
       </div>
     </div>
     <div class="row">
       <div class="col-12 px-0">
-        <button class="btn btn-outline-success mr-1" type="submit">Add</button>
-        <button class="btn btn-outline-danger mx-1" type="button">Delete</button>
-        <button class="btn btn-outline-secondary ml-1" type="button">Clear</button>
+        <button class="btn btn-outline-success mr-1" type="submit" [disabled]="!shoppingForm.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+        <button class="btn btn-outline-danger mx-1" type="button" (click)="deleteItem(shoppingForm)" [disabled]="!editMode">Delete</button>
+        <button class="btn btn-outline-secondary ml-1" type="button" (click)="shoppingForm.reset(); editMode = false;">Clear</button>
       </div>
     </div>
   </div>

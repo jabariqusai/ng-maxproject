@@ -5,9 +5,9 @@
     <div class="col-12 list-group pr-0 cursor-pointer" app-recipe-item>
       <app-recipe-item
         class="list-group-item list-group-item-action"
-        *ngFor="let recipe of recipes"
+        *ngFor="let recipe of recipes; let i = index;"
         [recipe]="recipe"
-        [routerLink]="[recipe.id]"
+        [routerLink]="[i]"
         routerLinkActive="active-list-item"
         >
       </app-recipe-item>

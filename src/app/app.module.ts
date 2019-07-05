@@ -10,11 +10,10 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { UnlessDirective } from './shared/directives/unless.directive';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { NewRecipeComponent } from './recipes/new-recipe/new-recipe.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
@@ -30,13 +29,13 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     HighlightDirective,
     UnlessDirective,
     RecipeStartComponent,
-    NewRecipeComponent,
     RecipeEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

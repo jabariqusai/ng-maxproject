@@ -14,7 +14,7 @@
         <div class="dropdown-menu" aria-labelledby="btnEditGroup">
           <a style="cursor: pointer;" class="dropdown-item" (click)="addIngredientsToSL()">Add to shopping list</a>
           <a style="cursor: pointer;" class="dropdown-item" [routerLink]="['edit']">Edit recipe</a>
-          <a style="cursor: pointer;" class="dropdown-item">Delete recipe</a>
+          <a style="cursor: pointer;" class="dropdown-item" (click)="deleteRecipe()">Delete recipe</a>
         </div>
       </div>
     </div>
