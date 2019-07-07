@@ -1,0 +1,27 @@
+input.ng-touched.ng-invalid{
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+.login-container{
+  border-radius: 7px;
+  padding: 35px 25px;
+  border: 1px double #e3e3e3;
+  overflow: hidden;
+  position: relative;
+
+  .loading-overlay{
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    opacity: 0.9;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}
+

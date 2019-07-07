@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Recipe } from '../recipes/recipe.model';
 import { Observable } from 'rxjs';
 import { RecipeService } from '../recipes/recipe.service';
+import { AuthService } from '../auth/auth.service';
+import { take, exhaustMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class DataStorageService {
   api: string;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    // private authService: AuthService
     ) {
     this.recipes = [];
     this.api = 'https://ng-recipe-book-bb907.firebaseio.com/';
@@ -23,6 +26,16 @@ export class DataStorageService {
   }
 
   getRecipes(): Observable<Recipe[]> {
+    // return this.authService.user.pipe(
+    //   take(1),
+    //   exhaustMap(user => {
+    //     return this.http.get<Recipe[]>(this.api + 'recipes.json', {
+    //       params: new HttpParams().set('auth', user.token)
+    //     });
+    //   })
+    //   // operators added after the exhuast map operator will be piped
+    //   // on the inner observable inserted by the last exhuast map
+    //   );
     return this.http.get<Recipe[]>(this.api + 'recipes.json');
   }
 }
