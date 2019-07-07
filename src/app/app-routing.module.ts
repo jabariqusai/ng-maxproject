@@ -6,9 +6,10 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeResolver } from './recipes/recipe.resolver';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipesResolver } from './recipes/recipes-resolver.service';
 
 const routes: Routes = [
-  {path: 'recipes', component: RecipesComponent, children: [
+  {path: 'recipes', component: RecipesComponent, resolve: {recipes: RecipesResolver}, children: [
     {path: '', component: RecipeStartComponent, pathMatch: 'full'},
     {path: 'new', component: RecipeEditComponent},
     {path: ':index', component: RecipeDetailComponent, resolve: {recipe: RecipeResolver}},

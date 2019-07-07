@@ -11,6 +11,14 @@
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['shopping-list']">Recipe Book</a>
             </li>
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Manage</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item cursor-pointer" (click)="storeRecipes()">Store Data</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item cursor-pointer"(click)="fetchRecipes()">Fetch Data</a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

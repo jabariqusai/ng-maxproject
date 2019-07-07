@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Subscription, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { RecipeService } from './recipe.service';
 
 @Component({
   selector: 'app-recipes',
@@ -12,7 +14,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
 
   activeRecipe: Recipe;
   customSuscription: Subscription;
-  constructor() {
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
    }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class RecipesComponent implements OnInit, OnDestroy {
         console.log('Observable completed.');
       }
     );
+
+    this.route.data.subscribe(data => {
+      this.recipeService.setRecipes(data.recipes);
+    });
   }
 
   recipeSelected(recipe: Recipe) {
