@@ -98,4 +98,8 @@ export class RecipeEditComponent implements OnInit {
       this.router.navigate(['..', index], {relativeTo: this.route});
     }
   }
+
+  get ingredientControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
 }

@@ -3,7 +3,7 @@ import { Recipe } from './recipe.model';
 import { Subscription, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { RecipeService } from './recipe.service';
+import { LoggingService } from '../logging.service';
 
 @Component({
   selector: 'app-recipes',
@@ -14,7 +14,10 @@ export class RecipesComponent implements OnInit, OnDestroy {
 
   activeRecipe: Recipe;
   customSuscription: Subscription;
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+  constructor(
+    private route: ActivatedRoute,
+    private loggingService: LoggingService
+    ) {
    }
 
   ngOnInit() {
@@ -43,10 +46,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
         console.log('Observable completed.');
       }
     );
-
-    this.route.data.subscribe(data => {
-      this.recipeService.setRecipes(data.recipes);
-    });
+    this.loggingService.printLog('Hello from recipes.component.ts');
   }
 
   recipeSelected(recipe: Recipe) {
