@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Recipe } from '../recipes/recipe.model';
 import { Observable } from 'rxjs';
-import { RecipeService } from '../recipes/recipe.service';
-import { AuthService } from '../auth/auth.service';
-import { take, exhaustMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

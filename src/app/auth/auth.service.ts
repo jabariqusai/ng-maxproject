@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { AuthResponse } from './auth-response.model';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router
     ) {
-    this.APIKey = 'AIzaSyD54Qw-f2KAqHTdBrnckvxolyVHW42QMeU';
+    this.APIKey = environment.firebaseAPIKey;
     this.authAPI = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
     this.signupAPI = this.authAPI + `signupNewUser?key=` + this.APIKey;
     this.loginAPI = this.authAPI + `verifyPassword?key=` + this.APIKey;
