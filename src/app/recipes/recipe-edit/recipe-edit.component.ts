@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipe.model';
-import { RecipeService } from '../recipe.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Ingredient } from 'src/app/shared/ingredient.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import * as RecipeActions from '../store/recipes.actions';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -13,13 +15,12 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 export class RecipeEditComponent implements OnInit {
 
   recipeForm: FormGroup;
-  editIndex: number;
   editMode: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private router: Router) {
+    private store: Store<AppState>
+    ) {
       this.recipeForm = new FormGroup({
         name: new FormControl(null, [Validators.required]),
         imgPath: new FormControl(null, [Validators.required]),
@@ -32,13 +33,16 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data) => {
       if (data.recipe) {
-        const recipe: Recipe = data.recipe.self;
+        const recipe: Recipe = data.recipe;
         this.initRecipeForm(recipe);
-        this.editIndex = data.recipe.index;
         this.editMode = true;
       } else {
         this.initRecipeForm(null);
       }
+    });
+
+    this.route.params.subscribe(data => {
+      this.store.dispatch(new RecipeActions.SetIndex(+data.index));
     });
   }
 
@@ -91,11 +95,9 @@ export class RecipeEditComponent implements OnInit {
       values.ingredients
       );
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.editIndex, recipe);
-      this.router.navigate(['../..', this.editIndex], {relativeTo: this.route});
+      this.store.dispatch(new RecipeActions.UpdateRecipe(recipe));
     } else {
-      const index = this.recipeService.createRecipe(recipe);
-      this.router.navigate(['..', index], {relativeTo: this.route});
+      this.store.dispatch(new RecipeActions.CreateRecipe(recipe));
     }
   }
 

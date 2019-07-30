@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
-import { AuthResponse } from './auth-response.model';
-import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AppState } from '../store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode: boolean;
   loading: boolean;
   error: string;
+  storeSub: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-    ) {
+  constructor(private store: Store<AppState>) {
     this.isLoginMode = true;
     this.loading = false;
+  }
+
+  ngOnInit() {
+    this.storeSub = this.store.select('auth').subscribe(authData => {
+      this.loading = authData.loading;
+      this.error = authData.authError;
+    });
   }
 
   onSwitchMode() {
@@ -34,24 +39,17 @@ export class AuthComponent {
     const email = authForm.value.email;
     const password = authForm.value.password;
 
-    let authObservable: Observable<AuthResponse>;
     this.loading = true;
     this.error = '';
 
     if (this.isLoginMode) {
-      authObservable = this.authService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({email, password}));
     } else {
-      authObservable = this.authService.signup(email, password);
+      this.store.dispatch(new AuthActions.SignUpStart({email, password}));
     }
+  }
 
-    authObservable
-      .subscribe(res => {
-        console.log(res);
-        // this.loading = false;
-        this.router.navigate(['/recipes']);
-      }, error => {
-        this.error = error;
-        this.loading = false;
-      });
+  ngOnDestroy() {
+    this.storeSub.unsubscribe();
   }
 }

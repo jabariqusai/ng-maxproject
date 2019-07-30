@@ -1,21 +1,24 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Recipe } from './recipe.model';
-import { RecipeService } from './recipe.service';
 import { Injectable } from '@angular/core';
+import { AppState } from '../store/app.reducer';
+import { Store } from '@ngrx/store';
+import { take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeResolver implements Resolve<{self: Recipe, index: number}> {
+export class RecipeResolver implements Resolve<Observable<Recipe>> {
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private store: Store<AppState>) { }
 
-  resolve(currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot): {self: Recipe, index: number} {
+  resolve(currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot): Observable<Recipe> {
     const index = +currentRoute.params.index;
-    const recipe = this.recipeService.getRecipe(index);
-    return {
-      self: recipe,
-      index
-    };
+    return this.store.select('recipes')
+      .pipe(
+        take(1),
+        map(data => data.recipes[index])
+      );
   }
 }

@@ -27,7 +27,7 @@
       <div class="col-12 px-0">
         <button class="btn btn-outline-success mr-1" type="submit" [disabled]="!shoppingForm.valid">{{ editMode ? 'Update' : 'Add' }}</button>
         <button class="btn btn-outline-danger mx-1" type="button" (click)="deleteItem(shoppingForm)" [disabled]="!editMode">Delete</button>
-        <button class="btn btn-outline-secondary ml-1" type="button" (click)="shoppingForm.reset(); editMode = false;">Clear</button>
+        <button class="btn btn-outline-secondary ml-1" type="button" (click)="resetForm(shoppingForm)">Clear</button>
       </div>
     </div>
   </div>

@@ -2,6 +2,9 @@ import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angu
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,15 +14,17 @@ import { Subscription } from 'rxjs';
 export class RecipeListComponent implements OnDestroy {
 
   recipes: Recipe[];
-  recipesUpdateSub: Subscription;
-  constructor(private recipeService: RecipeService) {
-    this.recipes = this.recipeService.getRecipes();
-    this.recipesUpdateSub = this.recipeService.recipesUpdatedEvent.subscribe( recipes => {
-      this.recipes = recipes;
-    });
+  recipesSub: Subscription;
+  constructor(private store: Store<AppState>) {
+    this.recipesSub =
+      this.store.select('recipes')
+        .pipe(
+          map(data => data.recipes)
+        )
+        .subscribe(recipes => this.recipes = recipes);
    }
 
   ngOnDestroy() {
-    this.recipesUpdateSub.unsubscribe();
+    this.recipesSub.unsubscribe();
   }
 }

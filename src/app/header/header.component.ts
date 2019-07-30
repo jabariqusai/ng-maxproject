@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../recipes/recipe.service';
-import { DataStorageService } from '../shared/data-storage.service';
-import { Recipe } from '../recipes/recipe.model';
-import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducer';
+import { map, take } from 'rxjs/operators';
+import * as AuthActions from '../auth/store/auth.actions';
+import * as RecipeActions from '../recipes/store/recipes.actions';
 
 @Component({
     selector: 'app-header',
@@ -14,16 +16,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   isAuthenticated: boolean;
 
-  constructor(
-    private recipeService: RecipeService,
-    private dataService: DataStorageService,
-    private authService: AuthService
-  ) {
+  constructor(private store: Store<AppState>) {
     this.isAuthenticated = false;
   }
 
   ngOnInit() {
-    this.userSub =  this.authService.user.subscribe(user => {
+    this.userSub =  this.store.select('auth')
+    .pipe(
+      map(data => data.user)
+    )
+    .subscribe(user => {
       this.isAuthenticated = !!user;
     });
   }
@@ -33,17 +35,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   storeRecipes() {
-    const recipes: Recipe[] = this.recipeService.getRecipes();
-    this.dataService.storeRecipes(recipes)
-      .subscribe(response => console.log(response));
+    this.store.select('recipes').pipe(
+      take(1),
+      map(recipeState => recipeState.recipes)
+    ).subscribe(recipes => this.store.dispatch(new RecipeActions.StoreRecipes(recipes)));
   }
 
   fetchRecipes() {
-    this.dataService.getRecipes()
-      .subscribe((recipes: Recipe[]) => this.recipeService.setRecipes(recipes));
+    this.store.dispatch(new RecipeActions.FetchRecipes());
   }
 
   logout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 }
